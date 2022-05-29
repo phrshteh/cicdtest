@@ -1,67 +1,27 @@
 <?php
-
 namespace Deployer;
 
 require 'recipe/laravel.php';
-require 'recipe/rsync.php';
 
-set('application', 'My App');
-set('ssh_multiplexing', true);
+// Config
 
-set('rsync_src', function () {
-    return __DIR__;
+set('repository', 'https://github.com/phrshteh/cicdtest.git');
+
+add('shared_files', []);
+add('shared_dirs', []);
+add('writable_dirs', []);
+
+// Hosts
+
+host('213.108.241.201')
+    ->set('remote_user', 'deployer')
+    ->set('deploy_path', '~/cicdtest');
+
+// Tasks
+
+task('build', function () {
+    cd('{{release_path}}');
+    run('npm run build');
 });
-
-
-add('rsync', [
-    'exclude' => [
-        '.git',
-        '/.env',
-        '/storage/',
-        '/vendor/',
-        '/node_modules/',
-        '.github',
-        'deploy.php',
-    ],
-]);
-
-task('deploy:secrets', function () {
-    file_put_contents(__DIR__.'/.env', getenv('DOT_ENV'));
-    upload('.env', get('deploy_path').'/shared');
-});
-
-host('myapp.io')
-    ->hostname('213.108.241.201')
-    ->stage('production')
-    ->user('shakiba')
-    ->set('deploy_path', '/var/www/html/cicdtest');
-
-//host('staging.myapp.io')
-//    ->hostname('213.108.241.201')
-//    ->stage('staging')
-//    ->user('shakiba')
-//    ->set('deploy_path', '/var/www/my-app-staging');
 
 after('deploy:failed', 'deploy:unlock');
-
-desc('Deploy the application');
-
-task('deploy', [
-    'deploy:info',
-    'deploy:prepare',
-    'deploy:lock',
-    'deploy:release',
-    'rsync',
-    'deploy:secrets',
-    'deploy:shared',
-    'deploy:vendors',
-    'deploy:writable',
-    'artisan:storage:link',
-    'artisan:view:cache',
-    'artisan:config:cache',
-    'artisan:migrate',
-    'artisan:queue:restart',
-    'deploy:symlink',
-    'deploy:unlock',
-    'cleanup',
-]);
