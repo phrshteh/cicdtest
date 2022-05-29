@@ -2,7 +2,7 @@ name: Deploy Site on push - develop
 on:
   push:
     branches:
-      - develop
+      - main
 jobs:
   web-deploy:
     name: Deploy
