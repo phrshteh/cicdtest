@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('test' ,function ()
 {
-    return 'test 44';
+    return 'test 55';
 });
