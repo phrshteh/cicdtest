@@ -68,4 +68,5 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
       - name: set up
         run: |
+          cp .env.example .env
           docker-compose up -d
