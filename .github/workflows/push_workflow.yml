@@ -64,3 +64,8 @@ jobs:
 #        env:
 #          DOT_ENV: ${{ secrets.DOT_ENV_PRODUCTION }}
 #        run: php vendor/bin/deployer.phar/bin/dep deploy prod --branch="main" -vv
+      - name: Composer install
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
+      - name: set up
+        run: |
+          docker-compose up -d
