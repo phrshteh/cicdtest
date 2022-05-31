@@ -78,4 +78,4 @@ jobs:
             composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
             php artisan key:generate
             php artisan optimize:clear
-            php artisan migrate
+            docker-compose up -d
