@@ -79,3 +79,4 @@ jobs:
             php artisan key:generate
             php artisan optimize:clear
             docker-compose up -d
+            docker exec -it cicdtest_laravel.test_1 php artisan migrate
