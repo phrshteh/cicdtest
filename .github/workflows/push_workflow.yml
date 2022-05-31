@@ -75,6 +75,7 @@ jobs:
           script: |
             cd ${{ secrets.DEV_REMOTE_LOCATION }}
             cp .env.example .env
+            composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
             php artisan key:generate
             php artisan optimize:clear
             php artisan migrate
