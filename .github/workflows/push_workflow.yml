@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             cd ${{ secrets.DEV_REMOTE_LOCATION }}
-            rm -rdf * !(cicdtest.zip)
+            rm -rdf * !("cicdtest.zip")
             rm -rdf .nojekyll
             rm -rdf .htaccess
       - name: Setup Deployer
