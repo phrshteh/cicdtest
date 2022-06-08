@@ -48,7 +48,6 @@ jobs:
           script: |
             cd ${{ secrets.DEV_REMOTE_LOCATION }}
             find . \! -name 'cicdtest.zip' -delete
-#            rm -rdf *
             rm -rdf .nojekyll
             rm -rdf .htaccess
       - name: Setup Deployer
